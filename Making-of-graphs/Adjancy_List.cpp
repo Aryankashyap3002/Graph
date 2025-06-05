@@ -4,13 +4,13 @@
 
 using namespace std;
 
-vector<list<int> > graph;
+vector<list<pair<int, int> > > graph;
 int v; // no. of vertices
 
-void add_edges(int src, int dest, bool bi_dir = true) {
-    graph[src].push_back(dest);
+void add_edges(int src, int dest, int wt, bool bi_dir = true) {
+    graph[src].push_back({dest, wt});
     if(bi_dir) {
-        graph[dest].push_back(src);
+        graph[dest].push_back({src, wt});
     }
 }
 
@@ -18,7 +18,7 @@ void display() {
     for(int i=0; i< graph.size(); i++) {
         cout<<i<<" -> ";
         for(auto el : graph[i]) {
-            cout<<el<<" , ";
+            cout<<"("<<el.first<<" "<<el.second<<")"<<" , ";
         }
         cout<<"\n";
     }
@@ -27,13 +27,13 @@ void display() {
 int main() {
 
     cin>>v;
-    graph.resize(v, list<int> ());
+    graph.resize(v, list<pair<int, int>> ());
     int e;
     cin>>e;
     while(e--) {
-        int s,d;
-        cin>>s>>d;
-        add_edges(s, d);
+        int s,d,wt ;
+        cin>>s>>d>>wt;
+        add_edges(s, d, wt);
     }
     display();
 
